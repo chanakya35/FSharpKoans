@@ -1,6 +1,7 @@
 // include Fake lib
 #r @"./packages/FAKE/tools/Fakelib.dll"
 open Fake
+open System
 
 RestorePackages()
 

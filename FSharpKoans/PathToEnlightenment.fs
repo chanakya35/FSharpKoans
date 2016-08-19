@@ -16,11 +16,12 @@ match result with
     printfn "%s" ex.Message
     printfn ""
     printfn "Please meditate on the following code:"
-    printfn "%s" ex.StackTrace
-    
-printfn ""
-printfn ""
-printfn ""
-printfn ""
-printf "Press any key to continue..."
-System.Console.ReadKey() |> ignore
+    printfn "%s" ex.StackTrace      
+(* Don't need these when running in redirected console
+    printfn ""
+    printfn ""
+    printfn ""
+    printfn ""
+    printf "Press any key to continue..."
+    System.Console.ReadKey() |> ignore
+*)
