@@ -120,8 +120,8 @@ module ``about lists`` =
         let original = [0..5]
         let result1, result2 = List.partition isOdd original
         
-        AssertEquality result1 __
-        AssertEquality result2 __
+        AssertEquality result1 [1;3;5]
+        AssertEquality result2 [0;2;4]
 
     (* Note: There are many other useful methods in the List module. Check them
        via intellisense in Visual Studio by typing '.' after List, or online at
