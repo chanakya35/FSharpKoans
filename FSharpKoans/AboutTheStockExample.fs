@@ -27,6 +27,8 @@ open FSharpKoans.Core
 //---------------------------------------------------------------
 [<Koan(Sort = 15)>]
 module ``about the stock example`` =
+    let splitCommas (x:string) =
+        x.Split([|','|])
     
     let stockData =
         [ "Date,Open,High,Low,Close,Volume,Adj Close";
@@ -53,7 +55,17 @@ module ``about the stock example`` =
           "2012-03-02,32.31,32.44,32.00,32.08,47314200,32.08";
           "2012-03-01,31.93,32.39,31.85,32.29,77344100,32.29";
           "2012-02-29,31.89,32.00,31.61,31.74,59323600,31.74"; ]
-    
+
+    let stockOpenCloseByDate =
+        stockData.Tail
+        |> List.map splitCommas
+        |> List.map (fun (tokens : array<string>) -> (tokens.[0],  (tokens.[1], tokens.[4])))
+        |> dict
+
+    [<Koan>]
+    let TheListShouldBeAFilteredTupleOfWhatINeed() =
+        AssertEquality stockOpenCloseByDate.Count (stockData.Length - 1)
+
     // Feel free to add extra [<Koan>] members here to write
     // tests for yourself along the way. You can also try 
     // using the F# Interactive window to check your progress.
