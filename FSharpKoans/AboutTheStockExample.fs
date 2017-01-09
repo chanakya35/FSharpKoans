@@ -56,15 +56,21 @@ module ``about the stock example`` =
           "2012-03-01,31.93,32.39,31.85,32.29,77344100,32.29";
           "2012-02-29,31.89,32.00,31.61,31.74,59323600,31.74"; ]
 
+    let headers = stockData.Head |> splitCommas |> Array.indexed |> Array.map (fun (i, header) -> (header, i)) |> dict
+    
     let stockOpenCloseByDate =
         stockData.Tail
         |> List.map splitCommas
-        |> List.map (fun (tokens : array<string>) -> (tokens.[0],  (tokens.[1], tokens.[4])))
+        |> List.map (fun (tokens : array<string>) -> 
+            (tokens.[headers.Item("Date")],  (tokens.[headers.Item("Open")], tokens.[headers.Item("Close")])))
         |> dict
 
     [<Koan>]
     let TheListShouldBeAFilteredTupleOfWhatINeed() =
         AssertEquality stockOpenCloseByDate.Count (stockData.Length - 1)
+
+//    let stockDifferentials =
+//        stockOpenCloseByDate |> List.map splitCommas
 
     // Feel free to add extra [<Koan>] members here to write
     // tests for yourself along the way. You can also try 
