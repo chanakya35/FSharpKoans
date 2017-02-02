@@ -58,19 +58,18 @@ module ``about the stock example`` =
 
     let headerColumnIndices = stockData.Head |> splitCommas |> Array.indexed |> Array.map (fun (i, header) -> (header, i)) |> dict
     
-    let stockOpenCloseByDate =
-        (List.map (splitCommas >> (fun (tokens : array<string>) -> 
-            (tokens.[headerColumnIndices.Item("Date")],  
-                (tokens.[headerColumnIndices.Item("Open")], 
-                    tokens.[headerColumnIndices.Item("Close")])))) stockData.Tail)
-        |> dict
+    let stockDifferentialsByDate =
+        (List.map (splitCommas 
+            >> (fun (tokens : array<string>) -> 
+                (tokens.[headerColumnIndices.Item("Date")],  
+                    System.Double.Parse tokens.[headerColumnIndices.Item("Open")], 
+                        System.Double.Parse tokens.[headerColumnIndices.Item("Close")])
+            >> fun (date, openAmount, closeAmount) -> 
+                date, abs (openAmount - closeAmount))) stockData.Tail)
 
     [<Koan>]
     let TheListShouldBeAFilteredTupleOfWhatINeed() =
-        AssertEquality stockOpenCloseByDate.Count (stockData.Length - 1)
-
-//    let stockDifferentials =
-//        stockOpenCloseByDate |> List.map 
+        AssertEquality stockDifferentialsByDate.Length (stockData.Length - 1)
 
     // Feel free to add extra [<Koan>] members here to write
     // tests for yourself along the way. You can also try 
@@ -78,6 +77,8 @@ module ``about the stock example`` =
 
     [<Koan>]
     let YouGotTheAnswerCorrect() =
-        let result =  __
-        
+        let result = __
+            // let maxDiff =  List.maxBy snd stockDifferentialsByDate
+            // TODO: figure out how to find the maxDiff tuple in the list
+
         AssertEquality "2012-03-13" result
