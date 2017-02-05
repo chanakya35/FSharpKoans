@@ -66,9 +66,9 @@ module ``about the stock example`` =
                         System.Double.Parse tokens.[headerColumnIndices.Item("Close")])
             >> fun (date, openAmount, closeAmount) -> 
                 date, abs (openAmount - closeAmount))) stockData.Tail)
-
+    
     [<Koan>]
-    let TheListShouldBeAFilteredTupleOfWhatINeed() =
+    let TheFilteredTupleListShouldBeTheCorrectLength() =
         AssertEquality stockDifferentialsByDate.Length (stockData.Length - 1)
 
     // Feel free to add extra [<Koan>] members here to write
@@ -77,8 +77,7 @@ module ``about the stock example`` =
 
     [<Koan>]
     let YouGotTheAnswerCorrect() =
-        let result = __
-            // let maxDiff =  List.maxBy snd stockDifferentialsByDate
-            // TODO: figure out how to find the maxDiff tuple in the list
+        let result = 
+            List.maxBy snd stockDifferentialsByDate |> fst
 
         AssertEquality "2012-03-13" result
