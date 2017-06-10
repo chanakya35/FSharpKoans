@@ -56,7 +56,13 @@ module ``about the stock example`` =
           "2012-03-01,31.93,32.39,31.85,32.29,77344100,32.29";
           "2012-02-29,31.89,32.00,31.61,31.74,59323600,31.74"; ]
 
-    let headerColumnIndices = stockData.Head |> splitCommas |> Array.indexed |> Array.map (fun (i, header) -> (header, i)) |> dict
+    
+    let indexedArray arr = 
+        let findIndex arr elem = arr |> Array.findIndex ((=) elem)
+        arr |> Array.map(fun elem -> findIndex arr elem, elem)
+
+    let headerColumnIndices = stockData.Head |> splitCommas |> indexedArray |> 
+                                Array.map (fun (i, header) -> (header, i)) |> dict
     
     let stockDifferentialsByDate =
         (List.map (splitCommas 

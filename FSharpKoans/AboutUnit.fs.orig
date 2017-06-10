@@ -19,7 +19,11 @@ module ``about unit`` =
             ()
 
         let x = sendData "data"
-        AssertEquality x () //Don't overthink this. Note also the value "()" displays as "null" in some cases.
+<<<<<<< HEAD
+        AssertEquality x () //Don't overthink this
+=======
+        AssertEquality x __ //Don't overthink this. Note also the value "()" displays as "null" in some cases.
+>>>>>>> upstream/fsharp
 
     [<Koan>]
     let ParameterlessFunctionsTakeUnitAsTheirArgument() =

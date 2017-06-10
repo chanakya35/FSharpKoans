@@ -57,7 +57,7 @@ module ``about dot net collections`` =
         let original = [0..5]
         let result = Seq.skip 2 original
         
-        AssertEquality result [2;3;4;5]
+        AssertEquality result ([2;3;4;5] |> seq<int>)
 
     [<Koan>]
     let FindingTheMax() =

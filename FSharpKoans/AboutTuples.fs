@@ -64,8 +64,8 @@ module ``about tuples`` =
         let squared, cubed = squareAndCube 3.0
         
         
-        AssertEquality squared 9
-        AssertEquality cubed 27
+        AssertEquality squared 9.
+        AssertEquality cubed 27.
     
     (* THINK ABOUT IT: Is there really more than one return value?
                        What type does the squareAndCube function
@@ -78,5 +78,4 @@ module ``about tuples`` =
             
         let result = squareAndCube 3.0
        
-        AssertEquality result (9.,27.) // weird - this fails unless we force the tuple values to floats
-        AssertInequality result (9,27) // i.e. this is true, because the values are integers (?)
+        AssertEquality result (9.,27.)
